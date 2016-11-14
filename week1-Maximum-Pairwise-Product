@@ -1,13 +1,12 @@
-package algorithm_toolbox;
-
 import java.util.*;
 import java.io.*;
 import java.math.BigInteger;
 
 public class MaxPairwiseProduct {
-    static BigInteger getMaxPairwiseProduct(int[] numbers) {
+    private static BigInteger getMaxPairwiseProduct(int[] numbers) {
         BigInteger result = BigInteger.valueOf(0);
         int n = numbers.length;
+        /* The efficiency is too slow!!!
         for (int i = 0; i < n; ++i) {
             for (int j = i + 1; j < n; ++j) {
                 if ((BigInteger.valueOf(numbers[i])).multiply(BigInteger.valueOf(numbers[j])).compareTo(result)==1) {
@@ -15,11 +14,23 @@ public class MaxPairwiseProduct {
                 }
             }
         }
+        */
+        int max = 0;
+        int secondmax = 0;
+        for(int i = 0; i<n; i++){
+        	if(numbers[i] > max){
+        		secondmax = max;
+        		max = numbers[i];
+        	}
+        	else if(numbers[i] > secondmax){
+        		secondmax = numbers[i];
+        	}
+        }
+        result = BigInteger.valueOf(max).multiply(BigInteger.valueOf(secondmax));
         return result;
     }
 
     public static void main(String[] args) {
-    	System.out.println("Please input:");
         FastScanner scanner = new FastScanner(System.in);
         int n = scanner.nextInt();
         int[] numbers = new int[n];
